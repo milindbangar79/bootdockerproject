@@ -44,7 +44,8 @@ node {
         sh "docker push ${imageName}"
 
     stage "Deploy"
-
+        
+        sh 'echo $BUILD_TAG'
         kubernetesDeploy configs: 'kubernetes/*.yml', 
         deleteResource: true, 
         enableConfigSubstitution: true, 
