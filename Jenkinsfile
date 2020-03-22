@@ -21,8 +21,10 @@ node {
     stage "Build"
 
         deleteDir() 
+        sh '${mvnHome}/bin/mvn -version'
 
         sh '${mvnHome}/bin/mvn clean test package'
+        
         sh "docker build -t ${imageName} -f Dockerfile ."
     
     stage "Push"
