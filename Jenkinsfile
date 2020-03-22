@@ -19,6 +19,7 @@ node {
         imageName = "${registryHost}${appName}:${tag}"
 
         env.BUILDIMG=imageName
+        env.BUILD_TAG=tag
 
          withMaven(
         // Maven installation declared in the Jenkins "Global Tool Configuration"
@@ -44,6 +45,6 @@ node {
 
     stage "Deploy"
 
-        kubernetesDeploy configs: "applications/${appName}/kubernetes/*.yaml", kubeconfigId: 'milind_kubeconfig'
+        kubernetesDeploy configs: "applications/${appName}/kubernetes/*.yml", kubeconfigId: 'milind_kubeconfig'
 
 }
