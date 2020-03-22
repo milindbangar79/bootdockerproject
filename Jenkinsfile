@@ -49,6 +49,6 @@ node {
         deleteResource: true, 
         enableConfigSubstitution: false, 
         kubeConfig: [path: '/var/jenkins_home/.kube/config'], 
-        kubeconfigId: 'kubeconfig_cluster', 
+        kubeconfigId: 'kubeconfig_cluster'
 
 }
