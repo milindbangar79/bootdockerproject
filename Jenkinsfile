@@ -4,8 +4,9 @@ node {
     def registryHost = "127.0.0.1:30400/"
     def imageName=''
     def tag=''
-    
-    stage "scm" {
+
+
+    stage "Build"
 
         deleteDir() 
 
@@ -18,10 +19,6 @@ node {
         imageName = "${registryHost}${appName}:${tag}"
 
         env.BUILDIMG=imageName
-    }
-
-
-    stage "Build"
 
          withMaven(
         // Maven installation declared in the Jenkins "Global Tool Configuration"
