@@ -1,4 +1,9 @@
 node {
+
+    def appName = "bootdockerproject"
+    def registryHost = "127.0.0.1:30400/"
+    def imageName=''
+    def tag=''
     
     stage "Checkout" {
 
@@ -7,11 +12,7 @@ node {
 
         sh "git rev-parse --short HEAD > commit-id"
 
-        tag = readFile('commit-id').replace("\n", "").replace("\r", "")
-
-        appName = "bootdockerproject"
-
-        registryHost = "127.0.0.1:30400/"
+        tag = readFile('commit-id').replace("\n", "").replace("\r", "")        
 
         imageName = "${registryHost}${appName}:${tag}"
 
