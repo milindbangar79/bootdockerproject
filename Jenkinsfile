@@ -1,5 +1,7 @@
 node {
 
+    def mvnHome = tool 'mvn'
+
     checkout scm
 
     env.DOCKER_API_VERSION="1.23"
@@ -17,7 +19,10 @@ node {
     env.BUILDIMG=imageName
 
     stage "Build"
-    
+
+        deleteDir() 
+
+        sh 'mvn clean test package'
         sh "docker build -t ${imageName} -f Dockerfile ."
     
     stage "Push"
