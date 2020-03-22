@@ -47,7 +47,7 @@ node {
 
         kubernetesDeploy configs: 'kubernetes/*.yml', 
         deleteResource: true, 
-        enableConfigSubstitution: false, 
+        enableConfigSubstitution: true, 
         kubeconfigId: 'kubeconfig_cluster'
 
 }
