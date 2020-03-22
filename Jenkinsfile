@@ -45,7 +45,10 @@ node {
 
     stage "Deploy"
 
-        sh "pwd"
-        kubernetesDeploy configs: "kubernetes/*.yml", kubeconfigId: 'milind_kubeconfig'
+        kubernetesDeploy configs: 'kubernetes/*.yml', 
+        deleteResource: true, 
+        enableConfigSubstitution: false, 
+        kubeConfig: [path: '/var/jenkins_home/.kube/config'], 
+        kubeconfigId: 'kubeconfig_cluster', 
 
 }
