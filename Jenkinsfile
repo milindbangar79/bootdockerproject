@@ -1,9 +1,5 @@
 node {
 
-    def mvnHome = tool 'mvn'
-
-    checkout scm
-
     env.DOCKER_API_VERSION="1.23"
     
     sh "git rev-parse --short HEAD > commit-id"
@@ -18,13 +14,31 @@ node {
 
     env.BUILDIMG=imageName
 
-    stage "Build"
+    stage "Checkout" {
 
         deleteDir() 
-        sh '${mvnHome}/bin/mvn -version'
+        checkout scm
+    }
 
-        sh '${mvnHome}/bin/mvn clean test package'
-        
+
+    stage "Build"
+
+         withMaven(
+        // Maven installation declared in the Jenkins "Global Tool Configuration"
+        maven: 'mvn',
+        // Maven settings.xml file defined with the Jenkins Config File Provider Plugin
+        // We recommend to define Maven settings.xml globally at the folder level using 
+        // navigating to the folder configuration in the section "Pipeline Maven Configuration / Override global Maven configuration"
+        // or globally to the entire master navigating to  "Manage Jenkins / Global Tools Configuration"
+        mavenSettingsConfig: 'global-maven-settings') {
+
+      // Run the maven build
+      sh 'mvn -version'
+      sh "mvn clean package"
+
+    } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
+
+
         sh "docker build -t ${imageName} -f Dockerfile ."
     
     stage "Push"
