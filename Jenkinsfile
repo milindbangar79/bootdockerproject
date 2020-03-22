@@ -44,7 +44,8 @@ node {
         sh "docker push ${imageName}"
 
     stage "Deploy"
-
-        kubernetesDeploy configs: "applications/${appName}/kubernetes/*.yml", kubeconfigId: 'milind_kubeconfig'
+    
+        sh "pwd"
+        kubernetesDeploy configs: "${appName}/kubernetes/*.yml", kubeconfigId: 'milind_kubeconfig'
 
 }
