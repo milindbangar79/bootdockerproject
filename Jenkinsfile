@@ -22,7 +22,7 @@ node {
 
         deleteDir() 
 
-        sh 'mvn clean test package'
+        sh '${mvnHome}/bin/mvn clean test package'
         sh "docker build -t ${imageName} -f Dockerfile ."
     
     stage "Push"
