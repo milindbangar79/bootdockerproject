@@ -5,9 +5,10 @@ node {
     def imageName=''
     def tag=''
     
-    stage "Checkout" {
+    stage "scm" {
 
         deleteDir() 
+
         checkout scm
 
         sh "git rev-parse --short HEAD > commit-id"
